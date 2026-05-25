@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='favicon.png') }}">
+    <title>Admin</title>
+
+
+
+
+    <style>
+        body {
+            background: #f5f7fb;
+        }
+
+        .sidebar {
+            height: 100vh;
+            background: #0d1b2a;
+            color: white;
+            padding: 20px;
+        }
+
+        .sidebar a {
+            color: #ccc;
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .sidebar a:hover {
+            background: #1b263b;
+            color: white;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .card-box {
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="/static/edulinkerlogo.png" alt="Logo" style="height:40px; margin-right:10px;">
+     
+    </a>
+
+    <div>
+      <a href="/teacher" class="btn btn-outline-light me-2">Become Teacher</a>
+      <a href="/student" class="btn btn-warning me-2">Find Teacher</a>
+      <a href="/admin" class="btn btn-danger">Admin</a>
+      <a href="/admin/teachers" class="btn btn-primary">Manage Teachers</a>
+      <a href="/admin/students" class="btn btn-secondary">Manage Students</a>
+    </div>
+  </div> -->
+<!-- </nav> --> 
+
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- 🔷 Sidebar -->
+        <div class="col-md-2 sidebar">
+            <h4>EduLinker</h4>
+            <hr>
+
+            <a href="/admin">Dashboard</a>
+            <a href="/admin/teachers">Teachers</a>
+            <a href="/admin/students">Students</a>
+            <a href="/admin/requests">Student Requests</a>
+            <a href="/logout">Logout</a>
+        </div>
+
+        <!-- 🔷 Main Content -->
+        <div class="col-md-10 content">
+            {% block content %}{% endblock %}
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+      <div class="container mt-5 text-center">
+        <h1 class="fw-bold">Find the Best Home Tutors Near You</h1>
+        <p class="lead">Trusted platform to connect students and teachers</p>
+    
+        <div class="mt-4">
+            <a href="/student" class="btn btn-primary btn-lg me-3">Find a Teacher</a>
+            <a href="/teacher" class="btn btn-success btn-lg">Become a Teacher</a>
+        </div>
+    </div>
+
+
+
+    <h4 class="mt-5">Connection Requests</h4>
+
+    <table class="table table-bordered">
+      <tr>
+          <th>Student</th>
+          <th>Phone</th>
+          <th>Teacher</th>
+          <th>Status</th>
+          <th>Action</th>
+      </tr>
+      
+      {% for c in connection_requests %}
+        <tr>
+          <td>{{ c.student_name }}</td>
+          <td>{{ c.student_phone }}</td>
+      
+          <td>
+              {{ teacher_map[c.teacher_id].name }}
+              ({{ teacher_map[c.teacher_id].subject }})
+          </td>
+      
+          <td>
+              {% if c.status == 'pending' %}
+                  <span class="badge bg-warning">Pending</span>
+              {% elif c.status == 'accepted' %}
+                  <span class="badge bg-success">Accepted</span>
+              {% else %}
+                  <span class="badge bg-danger">Rejected</span>
+              {% endif %}
+          </td>
+      
+          <td>
+              {% if c.status == 'pending' %}
+                  <a href="/accept_request/{{ c.id }}" class="btn btn-success btn-sm">Accept</a>
+                  <a href="/reject_request/{{ c.id }}" class="btn btn-danger btn-sm">Reject</a>
+                  <a href="/delete_request/{{ c.id }}" class="btn btn-dark btn-sm">Remove</a>
+              {% elif c.status == 'accepted' %}
+                  <a href="/delete_request/{{ c.id }}" class="btn btn-dark btn-sm">Remove</a>
+              {% else %}
+                  -
+               {% endif %}
+          </td>
+        </tr>
+      
+             
+        {% endfor %}
+        
+        
+      </table>
+    
+</body>
+</html>
+
+
+

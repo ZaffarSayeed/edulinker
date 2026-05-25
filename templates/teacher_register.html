@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+     <!-- Favicon -->
+
+     <link rel="icon"
+     type="image/png"
+     href="{{ url_for('static', filename='favicon.png') }}">
+
+
+    <title>Teacher Registration Form</title>
+
+    <style>
+      body {
+          background: url('/static/watermark.jpg') no-repeat center;
+          background-size: 300px;
+          background-color: #f8f9fa;
+      }
+
+      .form-card {
+          max-width: 450px;
+          margin: auto;
+          margin-top: 80px;
+          padding: 30px;
+          border-radius: 12px;
+      }
+  </style>
+
+
+
+
+
+
+
+</head>
+
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-white border-bottom px-3">
+    <div class="container-fluid">
+  
+      <!-- 🔷 Logo -->
+      <a class="navbar-brand d-flex align-items-center" href="/">
+          <img src="/static/edulinkerlogo.png" style="height:50px; margin-right:10px;">
+          
+      </a>
+  
+      <!-- 🔷 Right Side -->
+      <div class="d-flex align-items-center">
+  
+          <!-- Signup Button -->
+          <a href="/teacher" class="btn btn-primary me-3">
+              Signup as Tutor
+          </a>
+  
+          <!-- Login -->
+          <a href="/login" class="me-3 text-dark text-decoration-none">
+              Login
+          </a>
+  
+          <!-- Hamburger Menu -->
+          <div class="dropdown">
+              <button class="btn btn-light" data-bs-toggle="dropdown">
+                  ☰
+              </button>
+  
+              <ul class="dropdown-menu dropdown-menu-end shadow">
+                  <li><a class="dropdown-item" href="/login">Login</a></li>
+                  <li><a class="dropdown-item" href="#">Success Stories</a></li>
+                  <li><a class="dropdown-item" href="#">Tuition Fees</a></li>
+                  <li><a class="dropdown-item" href="#">Paid Courses</a></li>
+                  <li><a class="dropdown-item" href="#">Free Courses</a></li>
+                  <li><a class="dropdown-item" href="#">Internship</a></li>
+              </ul>
+          </div>
+  
+      </div>
+  
+    </div>
+  </nav>
+    
+
+      <div class="card shadow form-card">
+
+        <h3 class="text-center mb-4">Tutor Registration</h3>
+    
+        <!-- Flash Message -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-success text-center">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+    
+        <form method="POST" enctype="multipart/form-data">
+    
+            <input type="text" name="name" class="form-control mb-3" placeholder="Name" required>
+    
+            <input type="text" name="phone" class="form-control mb-3" placeholder="Phone" required>
+
+            
+
+            
+            
+            
+              
+            <input type="email" name="email" class="form-control mb-3" placeholder="Email">
+            
+    
+            <!-- <input type="text" name="subject" class="form-control mb-3" placeholder="Subject" required> -->
+
+            <select name="subject" class="form-select mb-3">
+              <option>Class 1-5 </option>
+              <option>Class 6-10 </option>
+              <option>Class 11-12</option>
+              <option>Competitive Exam</option>
+              <option>Programming Language</option>
+              <option>English 9-12</option>
+              <option>Math 9-12</option>
+              <option>Chemistry 9-12</option>
+              <option>Social Study 5-8</option>
+              <option>English 5-8</option>
+              <option>Math 5-8</option>
+              <option>Science 5-8</option>
+              <option>Islamic Quraan/Urdu</option>
+              
+              
+            </select>
+    
+            <!-- <input type="text" name="location" class="form-control mb-3" placeholder="Location" required> -->
+
+            <!-- <input type="text" id="pincode" class="form-control mb-3" placeholder="Enter Pincode" required>
+            <input type="text" id="location" name="location" class="form-control mb-3" placeholder="Location" readonly> -->
+
+            <!-- <input type="text" id="pincode" class="form-control mb-3" placeholder="Enter Pincode" required> -->
+
+          <button style="margin-bottom: 20px;" type="button" onclick="getLocation()" class="btn btn-primary"> Detect My Location </button>
+
+          <input type="text" id="location" name="location" class="form-control mb-3" placeholder="Your Location">
+
+            <!-- <select id="areaDropdown" class="form-select mb-3" style="display:none;">
+                <option value="">Select Area</option>
+            </select> -->
+
+            <!-- <input type="text" id="location" name="location"
+                  class="form-control mb-3"
+                  placeholder="Selected Location"
+                  readonly> -->
+    
+            <label>Upload your Image</label><input type="file" name="photo" class="form-control mb-3" required>
+
+            <!-- <label>Upload your Resume</label><input type="file" name="resume" class="form-control"> -->
+    
+            
+            
+            
+            
+            
+            
+            
+            <button id="registerBtn" class="btn btn-primary w-100" style="margin-top: 20px;">Register</button>
+            <!-- <button class="btn btn-primary w-100" style="margin-top: 20px;">Register</button> -->
+    
+        </form>
+    
+    </div>
+
+    
+
+        <script>
+          document.getElementById("pincode").addEventListener("blur", function () {
+          
+              let pin = this.value;
+          
+              if (pin.length !== 6) {
+                  alert("Enter valid 6 digit pincode");
+                  return;
+              }
+          
+              fetch(`https://api.postalpincode.in/pincode/${pin}`)
+                  .then(res => res.json())
+                  .then(data => {
+          
+                      if (data[0].Status === "Success") {
+          
+                          let dropdown = document.getElementById("areaDropdown");
+                          dropdown.innerHTML = '<option value="">Select Area</option>';
+          
+                          let postOffices = data[0].PostOffice;
+          
+                          postOffices.forEach(post => {
+                              let option = document.createElement("option");
+          
+                              let fullLocation = `${post.Name}, ${post.Block}, ${post.District}, ${post.State}`;
+          
+                              option.value = fullLocation;
+                              option.text = post.Name;
+          
+                              dropdown.appendChild(option);
+                          });
+          
+                          dropdown.style.display = "block";
+          
+                      } else {
+                          alert("Invalid Pincode");
+                      }
+                  });
+          });
+          </script>
+
+<script>
+  document.getElementById("areaDropdown").addEventListener("change", function () {
+  
+      let selectedLocation = this.value;
+  
+      document.getElementById("location").value = selectedLocation;
+  
+  });
+  </script>
+
+
+
+
+
+<!-- For Geolocation -->
+
+<script>
+
+  function getLocation() {
+  
+      if (navigator.geolocation) {
+  
+          navigator.geolocation.getCurrentPosition(
+  
+              async function(position) {
+  
+                  let lat = position.coords.latitude;
+                  let lon = position.coords.longitude;
+  
+                  // Reverse Geocoding API
+                  let response = await fetch(
+                      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
+                  );
+  
+                  let data = await response.json();
+  
+                  document.getElementById("location").value =
+                      data.display_name;
+  
+              },
+  
+              function(error) {
+  
+                  alert("Location access denied");
+  
+              }
+  
+          );
+  
+      } else {
+  
+          alert("Geolocation not supported");
+  
+      }
+  
+  }
+  
+  </script>
+
+
+        
+</body>
+</html>
+

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='favicon.png') }}">
+    <title>Admin Request</title>
+</head>
+<body>
+    
+
+
+    {% extends "admin.html" %}
+
+{% block content %}
+
+<h3 class="mb-4">Student Requests</h3>
+
+<div class="card shadow-sm p-3">
+<table class="table table-hover align-middle">
+
+<thead class="table-light">
+<tr>
+    <th>Date</th>
+    <th>Student</th>
+    <th>Phone</th>
+    <th>Teacher</th>
+    <th>Teacher Phone</th>
+    <th>Subject</th>
+    <th>Status</th>
+    <th class="text-end">Action</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for r in requests %}
+<tr>
+    <td>{{ r.created_at.strftime('%d-%m-%Y') }}</td>
+
+    <td class="fw-semibold">{{ r.student_name }}</td>
+    <td>{{ r.student_phone }}</td>
+
+    <td>{{ teacher_map[r.teacher_id].name }}</td>
+    <td>{{ teacher_map[r.teacher_id].phone }}</td>
+    <td>{{ teacher_map[r.teacher_id].subject }}</td>
+
+    <td>
+        {% if r.status == 'pending' %}
+            <span class="badge bg-warning">Pending</span>
+        {% elif r.status == 'accepted' %}
+            <span class="badge bg-success">Approved</span>
+        {% else %}
+            <span class="badge bg-danger">Rejected</span>
+        {% endif %}
+    </td>
+
+    <td class="text-end">
+
+        {% if r.status == 'pending' %}
+            <a href="/approve_request/{{ r.id }}" class="btn btn-success btn-sm">Approve</a>
+            <a href="/reject_request/{{ r.id }}" class="btn btn-danger btn-sm">Reject</a>
+        {% endif %}
+
+        <a href="/delete_request/{{ r.id }}" 
+           class="btn btn-dark btn-sm"
+           onclick="return confirm('Delete this record?')">
+           Delete
+        </a>
+
+    </td>
+</tr>
+{% endfor %}
+
+</tbody>
+</table>
+</div>
+
+{% endblock %}
+</body>
+</html>

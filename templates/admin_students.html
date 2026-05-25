@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='favicon.png') }}">
+    <title>Admin Students</title>
+</head>
+<body>
+
+     <!-- <div class="top-bar d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Manage Student Records</h5>
+        <a href="/admin" class="btn btn-outline-primary btn-sm">Back to Admin</a>
+    </div>  -->
+
+<!-- <h3 class="mb-4">Student Management</h3>
+
+<table class="table table-bordered shadow">
+<tr>
+    <th>Name</th>
+    <th>Phone</th>
+    <th>Subject</th>
+    <th>Location</th>
+    <th>Action</th>
+</tr>
+
+{% for s in students %}
+<tr>
+    <td>{{ s.name }}</td>
+    <td>{{ s.phone }}</td>
+    <td>{{ s.subject }}</td>
+    <td>{{ s.location }}</td>
+
+    <td>
+        <a href="/delete_student/{{ s.id }}" 
+           class="btn btn-danger btn-sm"
+           onclick="return confirm('Delete this student?')">
+           Remove
+        </a>
+    </td>
+</tr>
+{% endfor %}
+</table> -->
+
+
+
+{% extends "admin.html" %}
+
+{% block content %}
+
+<h3 class="mb-4">Student Requests</h3>
+
+<!-- 🔷 Stats -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card p-3 shadow-sm card-box">
+            <h6>Total Requests</h6>
+            <h3>{{ students|length }}</h3>
+        </div>
+    </div>
+</div>
+
+<!-- 🔷 Table -->
+<div class="card shadow-sm p-3">
+    <table class="table table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Subject</th>
+                <th>Location</th>
+                <th class="text-end">Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for s in students %}
+            <tr>
+                <td class="fw-semibold">{{ s.name }}</td>
+                <td>{{ s.phone }}</td>
+                <td>{{ s.subject }}</td>
+                <td>{{ s.location }}</td>
+
+                <td class="text-end">
+                    <a href="/delete_student/{{ s.id }}" 
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('Delete this student?')">
+                       Remove
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+</body>
+</html>
+
+
