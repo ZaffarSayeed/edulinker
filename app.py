@@ -11,8 +11,41 @@ from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 # from app import app, db
 
+
+
+
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+
+# Next line is for sqlite database configuration
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+
+
+
+#postgres neon database configuration and sqlite database configuration for local
+app = Flask(__name__)
+
+database_url = os.environ.get("DATABASE_URL")
+
+if database_url:
+
+    if database_url.startswith("postgres://"):
+        database_url = database_url.replace(
+            "postgres://",
+            "postgresql://",
+            1
+        )
+
+else:
+    database_url = "sqlite:///database.db"
+
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
+
+
+
 
 #email configuration
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -88,9 +121,12 @@ class Contact(db.Model):
 
 
 # we run it once when we change in database field
-@app.before_request
-def create_tables():
+# @app.before_request
+# def create_tables():
+#     db.create_all()
+with app.app_context():
     db.create_all()
+
 
 # SIgnup form
 
@@ -369,9 +405,12 @@ def admin_requests():
         return redirect('/login')
 
     requests = ConnectionRequest.query.all()
-    teachers = Teacher.query.all()
-
-    teacher_map = {t.id: t for t in teachers}
+    teachers = Teacher.query.all()   
+     
+    teacher_map = {
+    teacher.id: teacher
+    for teacher in teachers
+}
 
     return render_template(
         'admin_requests.html',
@@ -476,10 +515,30 @@ def search():
 
 # @app.route('/delete_request/<int:id>')
 # def delete_request(id):
-#     req = ConnectionRequest.query.get(id)
-#     db.session.delete(req)
+#     request_data = StudentRequest.query.get_or_404(id)
+#     db.session.delete(request_data)
 #     db.session.commit()
+#     flash("Request deleted successfully")
 #     return redirect('/admin')
+
+
+@app.route('/delete_request/<int:id>')
+def delete_request(id):
+
+    if not session.get('admin_logged_in'):
+        return redirect('/login')
+
+    request_record = ConnectionRequest.query.get(id)
+
+    if request_record:
+        db.session.delete(request_record)
+        db.session.commit()
+        flash("Request deleted successfully.", "success")
+    else:
+        flash("Request not found.", "warning")
+
+    return redirect('/admin/requests')
+
 
 
 @app.route('/approve_request/<int:id>')
@@ -538,18 +597,89 @@ def request_teacher(teacher_id):
     return render_template('request_form.html', teacher_id=teacher_id)
 
 
+# @app.route('/delete_teacher/<int:id>')
+# def delete_teacher(id):
+
+#     teacher = Teacher.query.get_or_404(id)
+
+#     # Delete related requests
+#     StudentRequest.query.filter_by(
+#         teacher_id=id
+#     ).delete()
+
+#     db.session.delete(teacher)
+
+#     db.session.commit()
+
+#     flash("Teacher deleted successfully")
+
+#     return redirect('/admin/teachers')
+
 @app.route('/delete_teacher/<int:id>')
 def delete_teacher(id):
+
     teacher = Teacher.query.get(id)
-    db.session.delete(teacher)
-    db.session.commit()
+
+    if teacher:
+
+        # Delete uploaded files if they exist
+        import os
+
+        if teacher.photo:
+            photo_path = os.path.join(app.config['UPLOAD_FOLDER'], teacher.photo)
+            if os.path.exists(photo_path):
+                os.remove(photo_path)
+
+        if getattr(teacher, 'resume', None):
+            resume_path = os.path.join(app.config['UPLOAD_FOLDER'], teacher.resume)
+            if os.path.exists(resume_path):
+                os.remove(resume_path)
+
+        # Delete related requests
+        StudentRequest.query.filter_by(id=id).delete()
+
+        db.session.delete(teacher)
+        db.session.commit()
+
+        flash("Teacher deleted successfully.", "success")
+
+    else:
+        flash("Teacher already deleted or not found.", "warning")
+
     return redirect('/admin/teachers')
+
+
+
+# @app.route('/delete_student/<int:id>')
+# def delete_student(id):
+#     student = StudentRequest.query.get_or_404(id)
+#     # Delete related requests
+#     StudentRequest.query.filter_by(
+#         student_id=id
+#     ).delete()
+
+#     db.session.delete(student)
+#     db.session.commit()
+#     flash("Student deleted successfully")
+#     return redirect('/admin/students')
 
 @app.route('/delete_student/<int:id>')
 def delete_student(id):
-    student = StudentRequest.query.get(id)
-    db.session.delete(student)
-    db.session.commit()
+
+    student = StudentRequest.query.get_or_404(id)
+
+    if student:
+
+        StudentRequest.query.filter_by(id=id).delete()
+
+        db.session.delete(student)
+        db.session.commit()
+
+        flash("Student deleted successfully.", "success")
+
+    else:
+        flash("Student already deleted or not found.", "warning")
+
     return redirect('/admin/students')
 
 # ------------------ RUN ------------------

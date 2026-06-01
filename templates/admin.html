@@ -94,7 +94,7 @@
 
 
 
-      <div class="container mt-5 text-center">
+      <!-- <div class="container mt-5 text-center">
         <h1 class="fw-bold">Find the Best Home Tutors Near You</h1>
         <p class="lead">Trusted platform to connect students and teachers</p>
     
@@ -102,11 +102,11 @@
             <a href="/student" class="btn btn-primary btn-lg me-3">Find a Teacher</a>
             <a href="/teacher" class="btn btn-success btn-lg">Become a Teacher</a>
         </div>
-    </div>
+    </div> -->
 
 
 
-    <h4 class="mt-5">Connection Requests</h4>
+    <!-- <h4 class="mt-5">Connection Requests</h4>
 
     <table class="table table-bordered">
       <tr>
@@ -123,8 +123,9 @@
           <td>{{ c.student_phone }}</td>
       
           <td>
-              {{ teacher_map[c.teacher_id].name }}
-              ({{ teacher_map[c.teacher_id].subject }})
+              
+              {{ teacher_map[c.teacher_id].name if c.teacher_id in teacher_map else "Teacher Removed" }}
+              {{ teacher_map[c.teacher_id].subject if c.teacher_id in teacher_map else "N/A" }}
           </td>
       
           <td>
@@ -141,7 +142,7 @@
               {% if c.status == 'pending' %}
                   <a href="/accept_request/{{ c.id }}" class="btn btn-success btn-sm">Accept</a>
                   <a href="/reject_request/{{ c.id }}" class="btn btn-danger btn-sm">Reject</a>
-                  <a href="/delete_request/{{ c.id }}" class="btn btn-dark btn-sm">Remove</a>
+                  <a href="/delete_request/{{ c.id }}" class="btn btn-dark btn-sm" >Remove</a>
               {% elif c.status == 'accepted' %}
                   <a href="/delete_request/{{ c.id }}" class="btn btn-dark btn-sm">Remove</a>
               {% else %}
@@ -154,7 +155,7 @@
         {% endfor %}
         
         
-      </table>
+      </table> -->
     
 </body>
 </html>

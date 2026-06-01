@@ -43,9 +43,9 @@
     <td class="fw-semibold">{{ r.student_name }}</td>
     <td>{{ r.student_phone }}</td>
 
-    <td>{{ teacher_map[r.teacher_id].name }}</td>
-    <td>{{ teacher_map[r.teacher_id].phone }}</td>
-    <td>{{ teacher_map[r.teacher_id].subject }}</td>
+    <td>{{ teacher_map[r.teacher_id].name if r.teacher_id in teacher_map else "Teacher Removed" }}</td>
+    <td>{{ teacher_map[r.teacher_id].phone if r.teacher_id in teacher_map else "N/A"}}</td>
+    <td>{{ teacher_map[r.teacher_id].subject if r.teacher_id in teacher_map else "N/A" }}</td>
 
     <td>
         {% if r.status == 'pending' %}
@@ -64,11 +64,17 @@
             <a href="/reject_request/{{ r.id }}" class="btn btn-danger btn-sm">Reject</a>
         {% endif %}
 
-        <a href="/delete_request/{{ r.id }}" 
+        <!-- <a href="/delete_request/{{ r.id }}" 
            class="btn btn-dark btn-sm"
            onclick="return confirm('Delete this record?')">
            Delete
-        </a>
+        </a> -->
+
+        <a href="{{ url_for('delete_request', id=r.id) }}"
+            class="btn btn-danger btn-sm"
+            onclick="return confirm('Delete this request?')">
+            Delete
+            </a>
 
     </td>
 </tr>

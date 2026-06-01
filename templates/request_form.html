@@ -33,16 +33,68 @@
 
 <div class="container mt-5">
     <div class="card p-4 shadow">
-        <h3>Student Request This Teacher</h3>
+        <h3>Student Details</h3>
 
         <form method="POST">
             <input type="text" name="name" class="form-control mb-3" placeholder="Student Name">
             <input type="text" name="phone" class="form-control mb-3" placeholder="Phone Number">
+            <button style="margin-bottom: 20px;" type="button" onclick="getLocation()" class="btn btn-primary"> Detect My Location </button>
+
+            <input type="text" id="location" name="location" class="form-control mb-3" placeholder="Your Location">
+
+
 
             <button class="btn btn-primary w-100">Send Request</button>
         </form>
     </div>
 </div>
 
+
+
+
+<!-- For Geolocation -->
+
+<script>
+
+    function getLocation() {
+    
+        if (navigator.geolocation) {
+    
+            navigator.geolocation.getCurrentPosition(
+    
+                async function(position) {
+    
+                    let lat = position.coords.latitude;
+                    let lon = position.coords.longitude;
+    
+                    // Reverse Geocoding API
+                    let response = await fetch(
+                        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
+                    );
+    
+                    let data = await response.json();
+    
+                    document.getElementById("location").value =
+                        data.display_name;
+    
+                },
+    
+                function(error) {
+    
+                    alert("Location access denied");
+    
+                }
+    
+            );
+    
+        } else {
+    
+            alert("Geolocation not supported");
+    
+        }
+    
+    }
+    
+    </script>
 </body>
 </html>
