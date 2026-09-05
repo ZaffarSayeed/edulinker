@@ -569,10 +569,18 @@ font-weight: 500;
                     <form action="/search" method="GET" class="row g-2">
 
                         <div class="col-md-5">
-                            <input type="text"
+                            <!-- <input type="text"
                                    name="subject"
                                    class="form-control"
-                                   placeholder="Subject (Math, Science)">
+                                   placeholder="Subject (Math, Science)"> -->
+
+                                   <select name="subject" class="form-select">
+                                    <option value="">Select Subject</option>
+                                
+                                    {% for subject in subjects %}
+                                        <option value="{{ subject }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
                         </div>
 
                         <div class="col-md-5">

@@ -47,6 +47,9 @@
     <td>{{ teacher_map[r.teacher_id].phone if r.teacher_id in teacher_map else "N/A"}}</td>
     <td>{{ teacher_map[r.teacher_id].subject if r.teacher_id in teacher_map else "N/A" }}</td>
 
+
+    
+
     <td>
         {% if r.status == 'pending' %}
             <span class="badge bg-warning">Pending</span>

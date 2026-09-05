@@ -202,7 +202,39 @@ def login():
         # return render_template('login.html')
 
 
-
+SUBJECTS = [
+    # "Mathematics",
+    # "Science",
+    # "Physics",
+    # "Chemistry",
+    # "Biology",
+    # "English",
+    # "Hindi",
+    # "Computer Science",
+    # "Social Science",
+    # "Accountancy",
+    # "Business Studies",
+    # "Economics",
+    # "Geography",
+    # "History",
+    # "Political Science",
+    # "General Knowledge",
+    # "Reasoning",
+    # "Quantitative Aptitude",
+    "Class 1-5",
+    "Class 6-10",
+    "Class 11-12",
+    "Competitive Exam",
+    "Programming Language",
+    "English 9-12",
+    "Math 9-12",
+    "Chemistry 9-12",
+    "Social Study 5-8",
+    "English 5-8",
+    "Math 5-8",
+    "Science 5-8",
+    "Islamic Quraan/Urdu"
+]
 
 
 
@@ -211,7 +243,7 @@ def login():
 @app.route('/')
 def home():
     teachers = Teacher.query.all()
-    return render_template('home.html', teachers=teachers)
+    return render_template('home.html', teachers=teachers, subjects=SUBJECTS)
     
 
 

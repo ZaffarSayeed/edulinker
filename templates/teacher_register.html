@@ -117,8 +117,8 @@
     
             <!-- <input type="text" name="subject" class="form-control mb-3" placeholder="Subject" required> -->
 
-            <select name="subject" class="form-select mb-3">
-              <option>Class 1-5 </option>
+            <select name="subject" class="form-select mb-3" multiple required>
+              <!-- <option>Class 1-5 </option>
               <option>Class 6-10 </option>
               <option>Class 11-12</option>
               <option>Competitive Exam</option>
@@ -130,8 +130,11 @@
               <option>English 5-8</option>
               <option>Math 5-8</option>
               <option>Science 5-8</option>
-              <option>Islamic Quraan/Urdu</option>
-              
+              <option>Islamic Quraan/Urdu</option> -->
+
+              {% for subject in subjects %}
+                    <option value="{{ subject }}">{{ subject }}</option>
+                {% endfor %}
               
             </select>
     
