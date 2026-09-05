@@ -288,7 +288,7 @@ def teacher():
 
         return redirect(url_for('home'))
 
-    return render_template('teacher_register.html')
+    return render_template('teacher_register.html', subjects=SUBJECTS)
 
 
 
