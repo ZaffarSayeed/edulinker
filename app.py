@@ -244,6 +244,29 @@ SUBJECTS = [
 def home():
     teachers = Teacher.query.all()
     return render_template('home.html', teachers=teachers, subjects=SUBJECTS)
+
+@app.route('/sitemap.xml')
+def sitemap():
+    pages = [
+        url_for('home', _external=True),
+        url_for('about', _external=True),
+        url_for('contact', _external=True),
+        url_for('faq', _external=True),
+    ]
+
+    sitemap = '<?xml version="1.0" encoding="UTF-8"?>'
+    sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+
+    for page in pages:
+        sitemap += f'''
+        <url>
+            <loc>{page}</loc>
+        </url>
+        '''
+
+    sitemap += '</urlset>'
+
+    return Response(sitemap, mimetype='application/xml')
     
 
 
