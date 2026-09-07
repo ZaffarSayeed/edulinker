@@ -9,6 +9,7 @@ from urllib.parse import quote
 from datetime import datetime
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
+from flask import Flask, render_template, request, redirect, url_for, flash, session, Response
 # from app import app, db
 
 
@@ -349,7 +350,9 @@ def teacher():
 
 #     return redirect('/teacher-dashboard')
 
-
+@app.route('/faq')
+def faq():
+    return render_template('faq.html')
 
 @app.route('/about')
 def about():
