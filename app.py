@@ -268,6 +268,20 @@ def sitemap():
     sitemap += '</urlset>'
 
     return Response(sitemap, mimetype='application/xml')
+
+@app.route('/robots.txt')
+def robots():
+    content = """User-agent: *
+Allow: /
+
+Disallow: /admin
+Disallow: /admin/
+Disallow: /login
+Disallow: /teacher-login
+
+Sitemap: https://edulinkerindia.onrender.com/sitemap.xml
+"""
+    return Response(content, mimetype='text/plain')
     
 
 
