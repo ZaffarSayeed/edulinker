@@ -246,13 +246,15 @@ def home():
     teachers = Teacher.query.all()
     return render_template('home.html', teachers=teachers, subjects=SUBJECTS)
 
+
+
 @app.route('/sitemap.xml')
 def sitemap():
     pages = [
-        url_for('home', _external=True),
-        url_for('about', _external=True),
-        url_for('contact', _external=True),
-        url_for('faq', _external=True),
+        'https://edulinkerindia.onrender.com/',
+        'https://edulinkerindia.onrender.com/about',
+        'https://edulinkerindia.onrender.com/contact',
+        'https://edulinkerindia.onrender.com/faq'
     ]
 
     sitemap = '<?xml version="1.0" encoding="UTF-8"?>'
@@ -268,6 +270,7 @@ def sitemap():
     sitemap += '</urlset>'
 
     return Response(sitemap, mimetype='application/xml')
+
 
 @app.route('/robots.txt')
 def robots():
