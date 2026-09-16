@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <!-- SEO TITLE -->
+    <title>Home Tutors Near You | Home Tuition & Private Tutors | EduLinker</title>
+
+    <!-- SEO DESCRIPTION -->
+    <meta name="description"
+          content="Find trusted home tutors and private tutors near you with EduLinker. Search qualified home tuition teachers by subject, class and location for school, board exams and competitive exams.">
+
+    <!-- INDEXING -->
+    <meta name="robots" content="index, follow">
+
+    <!-- CANONICAL -->
+    <link rel="canonical"
+          href="https://edulinkerindia.onrender.com/home-tutors">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title"
+          content="Home Tutors Near You | EduLinker">
+
+    <meta property="og:description"
+          content="Find trusted home tutors and private tutors by subject, class and location with EduLinker.">
+
+    <meta property="og:type"
+          content="website">
+
+    <meta property="og:url"
+          content="https://edulinkerindia.onrender.com/home-tutors">
+
+    <meta property="og:image"
+          content="https://edulinkerindia.onrender.com/static/edulinkerlogo.png">
+
+    <!-- TWITTER -->
+    <meta name="twitter:card"
+          content="summary_large_image">
+
+    <meta name="twitter:title"
+          content="Home Tutors Near You | EduLinker">
+
+    <meta name="twitter:description"
+          content="Find trusted home tutors and private tutors near you with EduLinker.">
+
+    <meta name="twitter:image"
+          content="https://edulinkerindia.onrender.com/static/edulinkerlogo.png">
+
+    <!-- MOBILE -->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <!-- FAVICON -->
+    <link rel="icon"
+          type="image/png"
+          href="{{ url_for('static', filename='favicon.png') }}">
+
+    <!-- BOOTSTRAP -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #222;
+            background: #fff;
+        }
+
+        .navbar-brand img {
+            height: 75px;
+            margin-top: -15px;
+            margin-bottom: -15px;
+        }
+
+        .nav-link-custom {
+            text-decoration: none;
+            color: #333;
+            margin-left: 22px;
+            font-weight: 500;
+        }
+
+        .nav-link-custom:hover {
+            color: #0d6efd;
+        }
+
+        .hero-section {
+            background: linear-gradient(
+                135deg,
+                #eef6ff,
+                #ffffff
+            );
+            padding: 75px 0;
+        }
+
+        .hero-section h1 {
+            font-size: 44px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero-section p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .section {
+            padding: 65px 0;
+        }
+
+        .section-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            color: #666;
+            max-width: 750px;
+            margin: auto;
+            line-height: 1.7;
+        }
+
+        .subject-card {
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 25px;
+            height: 100%;
+            transition: 0.2s;
+            background: #fff;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .subject-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .subject-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .class-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            height: 100%;
+        }
+
+        .class-card h3 {
+            font-size: 20px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 25px;
+        }
+
+        .step-number {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #0d6efd;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .teacher-card {
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 18px;
+            height: 100%;
+            background: white;
+        }
+
+        .teacher-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .teacher-card h3 {
+            font-size: 19px;
+            margin-top: 15px;
+        }
+
+        .teacher-card p {
+            margin-bottom: 7px;
+            color: #666;
+        }
+
+        .faq-item {
+            margin-bottom: 25px;
+        }
+
+        .faq-item h3 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .faq-item p {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .cta-section {
+            background: #212529;
+            color: white;
+            padding: 65px 0;
+        }
+
+        footer {
+            background: #111;
+            color: #ddd;
+            padding: 25px 0;
+        }
+
+        footer a {
+            color: #ddd;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+
+            .hero-section {
+                padding: 50px 0;
+            }
+
+            .hero-section h1 {
+                font-size: 34px;
+            }
+
+            .nav-link-custom {
+                margin: 8px 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ========================================================= -->
+<!-- NAVBAR -->
+<!-- ========================================================= -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+
+    <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center"
+           href="/">
+
+            <img src="/static/edulinkerlogo.png"
+                 alt="EduLinker home tuition">
+
+        </a>
+
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarContent">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <div class="collapse navbar-collapse"
+             id="navbarContent">
+
+            <div class="ms-auto d-flex align-items-center flex-lg-row flex-column">
+
+                <a href="/"
+                   class="nav-link-custom">
+                    Home
+                </a>
+
+                <a href="/about"
+                   class="nav-link-custom">
+                    About Us
+                </a>
+
+                <a href="/contact"
+                   class="nav-link-custom">
+                    Contact Us
+                </a>
+
+                <a href="/faq"
+                   class="nav-link-custom">
+                    FAQ
+                </a>
+
+                <a href="/login"
+                   class="nav-link-custom">
+                    Login
+                </a>
+
+                <a href="/teacher"
+                   class="btn btn-primary ms-lg-3 mt-3 mt-lg-0">
+                    Signup as Tutor
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ========================================================= -->
+<!-- HERO -->
+<!-- ========================================================= -->
+
+<section class="hero-section">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-7">
+
+                <h1>
+                    Find Home Tutors Near You
+                </h1>
+
+                <p class="mt-4">
+
+                    Find trusted home tutors, private tutors and
+                    online teachers for school subjects, board
+                    examinations and competitive exams.
+
+                    Search tutors by subject and location and find
+                    a suitable teacher for your learning needs.
+
+                </p>
+
+
+                <div class="search-box mt-4">
+
+                    <form action="/search"
+                          method="GET"
+                          class="row g-2">
+
+                        <div class="col-md-5">
+
+                            <select name="subject"
+                                    class="form-select">
+
+                                <option value="">
+                                    Select Subject
+                                </option>
+
+                                {% for subject in subjects %}
+
+                                    <option value="{{ subject }}">
+                                        {{ subject }}
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="col-md-5">
+
+                            <input type="text"
+                                   name="location"
+                                   class="form-control"
+                                   placeholder="Enter your city or location">
+
+                        </div>
+
+
+                        <div class="col-md-2">
+
+                            <button type="submit"
+                                    class="btn btn-warning w-100">
+
+                                Search
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-5 mt-5 mt-lg-0 text-center">
+
+                <img
+                    src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1000&auto=format&fit=crop"
+                    class="img-fluid rounded-4 shadow"
+                    alt="Home tutor teaching a student">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================================= -->
+<!-- INTRODUCTION -->
+<!-- ========================================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-9">
+
+                <h2 class="section-title text-center">
+                    Find the Right Home Tutor for Your Learning Needs
+                </h2>
+
+                <p class="section-subtitle text-center">
+
+                    EduLinker helps students and parents find
+                    home tutors, private tutors and online teachers
+                    based on subject, class and location.
+
+                    Whether you need help with Mathematics,
+                    Science, English, Physics, Chemistry,
+                    Computer Science or another subject, you can
+                    search for tutors and explore suitable
+                    teaching options.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================================= -->
+<!-- SUBJECTS -->
+<!-- ========================================================= -->
+
+<section class="section bg-light">
+
+    <div class="container">
+
+        <h2 class="section-title text-center">
+            Find Home Tutors by Subject
+        </h2>
+
+        <p class="section-subtitle text-center mb-5">
+
+            Search for tutors who can help students understand
+            important school and academic subjects.
+
+        </p>
+
+
+        <div class="row g-4">
+
+
+            <!-- Mathematics -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="subject-card">
+
+                    <h3>
+                        Mathematics Tutors
+                    </h3>
+
+                    <p>
+                        Find Mathematics and Maths tutors for
+                        school classes, board examinations and
+                        competitive exam preparation.
+                    </p>
+
+                    <a href="/home-tutors/mathematics"
+                       class="btn btn-outline-primary btn-sm">
+
+                        Find Mathematics Tutors
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Science -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="subject-card">
+
+                    <h3>
+                        Science Tutors
+                    </h3>
+
+                    <p>
+                        Find Science tutors for school students
+                        looking for additional academic support
+                        and personalized learning.
+                    </p>
+
+                    <a href="/home-tutors/science"
+                       class="btn btn-outline-primary btn-sm">
+
+                        Find Science Tutors
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Physics -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="subject-card">
+
+                    <h3>
+                        Physics Tutors
+                    </h3>
+
+                    <p>
+                        Connect with Physics tutors for school,
+                        board examinations and higher-level
+                        academic preparation.
+                    </p>
+
+                    <a href="/home-tutors/physics"
+                       class="btn btn-outline-primary btn-sm">
+
+                        Find Physics Tutors
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Chemistry -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="subject-card">
+
+                    <h3>
+                        Chemistry Tutors
+                    </h3>
+
+                    <p>
+                        Find Chemistry tutors for school,
+                        board examinations and competitive
+                        examination preparation.
+                    </p>
+
+                    <a href="/home-tutors/chemistry"
+                       class="btn btn-outline-primary btn-sm">
+
+                        Find Chemistry Tutors
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- English -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="subject-card">
+
+                    <h3>
+                        English Tutors
+                    </h3>
+
+                    <p>
+                        Find English tutors for grammar,
+                        communication, school examinations
+                        and language development.
+                    </p>
+
+                    <a href="/home-tutors/english"
+                       class="btn btn-outline-primary btn-sm">
+
+                        Find English Tutors
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Computer -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="subject-card">
+
+                    <h3>
+                        Computer Science Tutors
+                    </h3>
+
+                    <p>
+                        Find Computer Science tutors for
+                        programming, school computer subjects
+                        and academic learning.
+                    </p>
+
+                    <a href="/home-tutors/computer-science"
+                       class="btn btn-outline-primary btn-sm">
+
+                        Find Computer Tutors
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Biology -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="subject-card">
+
+                    <h3>
+                        Biology Tutors
+                    </h3>
+
+                    <p>
+                        Find Biology tutors for school students,
+                        board examinations and academic preparation.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Hindi -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="subject-card">
+
+                    <h3>
+                        Hindi Tutors
+                    </h3>
+
+                    <p>
+                        Find Hindi tutors for school students
+                        looking for personalized language
+                        and examination support.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================================= -->
+<!-- CLASSES -->
+<!-- ========================================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <h2 class="section-title text-center">
+            Home Tutors for Different Classes
+        </h2>
+
+        <p class="section-subtitle text-center mb-5">
+
+            Find tutors according to your child's class,
+            academic level and learning requirements.
+
+        </p>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="class-card">
+
+                    <h3>
+                        Class 1–5 Home Tutors
+                    </h3>
+
+                    <p>
+                        Find tutors for primary school students
+                        who need help with Mathematics, English,
+                        Science and other subjects.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="class-card">
+
+                    <h3>
+                        Class 6–10 Home Tutors
+                    </h3>
+
+                    <p>
+                        Find experienced tutors for middle and
+                        secondary school subjects and board
+                        examination preparation.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="class-card">
+
+                    <h3>
+                        Class 11–12 Tutors
+                    </h3>
+
+                    <p>
+                        Find subject-focused tutors for senior
+                        secondary students studying Science,
+                        Commerce, Arts and other streams.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="class-card">
+
+                    <h3>
+                        Competitive Exam Tutors
+                    </h3>
+
+                    <p>
+                        Find tutors for competitive examination
+                        subjects including Mathematics, Physics,
+                        Chemistry, Reasoning and Quantitative Aptitude.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================================= -->
+<!-- HOW IT WORKS -->
+<!-- ========================================================= -->
+
+<section class="section bg-light">
+
+    <div class="container">
+
+        <h2 class="section-title text-center">
+            How to Find a Home Tutor with EduLinker
+        </h2>
+
+        <p class="section-subtitle text-center mb-5">
+
+            Finding a suitable tutor through EduLinker is simple.
+
+        </p>
+
+
+        <div class="row">
+
+
+            <div class="col-md-4">
+
+                <div class="step">
+
+                    <div class="step-number">
+                        1
+                    </div>
+
+                    <h3 class="h5">
+                        Search for a Tutor
+                    </h3>
+
+                    <p>
+                        Search home tutors and online tutors
+                        by subject and location.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="step">
+
+                    <div class="step-number">
+                        2
+                    </div>
+
+                    <h3 class="h5">
+                        Request & Connect
+                    </h3>
+
+                    <p>
+                        Explore tutor profiles and send a
+                        tutor request through EduLinker.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="step">
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+                    <h3 class="h5">
+                        Start Learning
+                    </h3>
+
+                    <p>
+                        Connect with your selected tutor
+                        and start your learning journey.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================================= -->
+<!-- WHY HOME TUITION -->
+<!-- ========================================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-9">
+
+                <h2 class="section-title text-center">
+                    Why Choose Home Tuition?
+                </h2>
+
+                <p>
+                    Home tuition provides students with an
+                    opportunity to receive focused academic
+                    support in a familiar learning environment.
+                    A tutor can adapt lessons according to the
+                    student's subject requirements and learning
+                    pace.
+                </p>
+
+                <p>
+                    Parents can search for tutors based on
+                    subject and location and explore teaching
+                    options that match their requirements.
+                    Personalized attention can also help students
+                    focus on areas where they need additional
+                    practice.
+                </p>
+
+                <p>
+                    EduLinker makes it easier to discover home
+                    tutors and online teachers for different
+                    classes and subjects.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================================= -->
+<!-- ONLINE TUTORS -->
+<!-- ========================================================= -->
+
+<section class="section bg-light">
+
+    <div class="container text-center">
+
+        <h2 class="section-title">
+            Looking for an Online Tutor?
+        </h2>
+
+        <p class="section-subtitle">
+
+            If you prefer online learning, you can also explore
+            online tutors for school subjects, academic support
+            and examination preparation.
+
+        </p>
+
+        <a href="/online-tutors"
+           class="btn btn-primary mt-4">
+
+            Explore Online Tutors
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================================= -->
+<!-- LOCATION LINKS -->
+<!-- ========================================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <h2 class="section-title text-center">
+            Find Home Tutors by Location
+        </h2>
+
+        <p class="section-subtitle text-center mb-5">
+
+            Search for home tutors in cities and locations
+            covered by EduLinker.
+
+        </p>
+
+
+        <div class="row text-center">
+
+
+            <div class="col-md-3 mb-3">
+
+                <a href="/tutors/patna"
+                   class="btn btn-outline-primary w-100">
+
+                    Home Tutors in Patna
+
+                </a>
+
+            </div>
+
+
+            <div class="col-md-3 mb-3">
+
+                <a href="/tutors/kolkata"
+                   class="btn btn-outline-primary w-100">
+
+                    Home Tutors in Kolkata
+
+                </a>
+
+            </div>
+
+
+            <div class="col-md-3 mb-3">
+
+                <a href="/tutors/bhubaneswar"
+                   class="btn btn-outline-primary w-100">
+
+                    Home Tutors in Bhubaneswar
+
+                </a>
+
+            </div>
+
+
+            <div class="col-md-3 mb-3">
+
+                <a href="/tutors/delhi"
+                   class="btn btn-outline-primary w-100">
+
+                    Home Tutors in Delhi
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================================= -->
+<!-- AVAILABLE TUTORS -->
+<!-- ========================================================= -->
+
+{% if teachers %}
+
+<section class="section bg-light">
+
+    <div class="container">
+
+        <h2 class="section-title text-center">
+            Tutors Available on EduLinker
+        </h2>
+
+        <p class="section-subtitle text-center mb-5">
+
+            Explore tutor profiles available on the platform.
+
+        </p>
+
+
+        <div class="row g-4">
+
+            {% for t in teachers[:8] %}
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="teacher-card">
+
+                    <img
+                        src="/static/uploads/{{ t.photo }}"
+                        alt="{{ t.subject }} tutor {{ t.name }} in {{ t.location }}"
+                        onerror="this.src='/static/default.png'">
+
+
+                    <h3>
+                        {{ t.name }}
+                    </h3>
+
+
+                    <p>
+                        {{ t.subject }} Tutor
+                    </p>
+
+
+                    <p>
+                        📍 Home Tutor in {{ t.location }}
+                    </p>
+
+
+                    <div>
+                        ⭐ {{ t.rating if t.rating else 4.5 }}
+                    </div>
+
+
+                    <a href="/teacher/{{ t.id }}"
+                       class="btn btn-primary btn-sm mt-2">
+
+                        View Tutor Profile
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endif %}
+
+
+
+<!-- ========================================================= -->
+<!-- FAQ -->
+<!-- ========================================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <h2 class="section-title text-center mb-5">
+            Frequently Asked Questions About Home Tutors
+        </h2>
+
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-9">
+
+
+                <div class="faq-item">
+
+                    <h3>
+                        How can I find a home tutor near me?
+                    </h3>
+
+                    <p>
+                        You can use EduLinker's search option
+                        to find tutors by subject and location.
+                        Enter the subject you need help with
+                        and your city or location to explore
+                        available tutors.
+                    </p>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <h3>
+                        What subjects can I find home tutors for?
+                    </h3>
+
+                    <p>
+                        Tutors may be available for subjects
+                        such as Mathematics, Science, Physics,
+                        Chemistry, Biology, English, Hindi,
+                        Computer Science, Social Science and
+                        other academic subjects.
+                    </p>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <h3>
+                        Can I find tutors for Class 10 and Class 12?
+                    </h3>
+
+                    <p>
+                        Yes. EduLinker is designed to help
+                        students and parents search for tutors
+                        according to their class, subject and
+                        location.
+                    </p>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <h3>
+                        Does EduLinker provide online tutors?
+                    </h3>
+
+                    <p>
+                        EduLinker can also help students explore
+                        online tutoring options. Visit the
+                        online tutors section to learn more.
+                    </p>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <h3>
+                        How do I request a tutor?
+                    </h3>
+
+                    <p>
+                        Open a tutor profile, review the available
+                        information and use the request option.
+                        EduLinker can then process the request
+                        according to its platform process.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================================= -->
+<!-- CTA -->
+<!-- ========================================================= -->
+
+<section class="cta-section">
+
+    <div class="container text-center">
+
+        <h2>
+            Looking for a Home Tutor?
+        </h2>
+
+        <p class="mt-3">
+            Search for tutors by subject and location with EduLinker.
+        </p>
+
+        <a href="/"
+           class="btn btn-warning mt-3">
+
+            Find a Tutor
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================================= -->
+<!-- FOOTER -->
+<!-- ========================================================= -->
+
+<footer>
+
+    <div class="container text-center">
+
+        <p class="mb-2">
+            © 2026 EduLinker | All Rights Reserved
+        </p>
+
+        <div>
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/about">
+                About Us
+            </a>
+
+            <a href="/contact">
+                Contact Us
+            </a>
+
+            <a href="/faq">
+                FAQ
+            </a>
+
+            <a href="/home-tutors">
+                Home Tutors
+            </a>
+
+            <a href="/online-tutors">
+                Online Tutors
+            </a>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- BOOTSTRAP JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+</html>

@@ -251,10 +251,17 @@ def home():
 @app.route('/sitemap.xml')
 def sitemap():
     pages = [
-        'https://edulinkerindia.onrender.com/',
-        'https://edulinkerindia.onrender.com/about',
-        'https://edulinkerindia.onrender.com/contact',
-        'https://edulinkerindia.onrender.com/faq'
+        # 'https://edulinkerindia.onrender.com/',
+        # 'https://edulinkerindia.onrender.com/about',
+        # 'https://edulinkerindia.onrender.com/contact',
+        # 'https://edulinkerindia.onrender.com/faq',
+        # 'https://edulinkerindia.onrender.com/home_tutors'
+        url_for('home', _external=True),
+        url_for('about', _external=True),
+        url_for('contact', _external=True),
+        url_for('faq', _external=True),
+        url_for('home_tutors', _external=True),
+
     ]
 
     sitemap = '<?xml version="1.0" encoding="UTF-8"?>'
@@ -366,6 +373,17 @@ def teacher():
 #     flash("Video Uploaded Successfully")
 
 #     return redirect('/teacher-dashboard')
+
+
+@app.route('/home-tutors')
+def home_tutors():
+    teachers = Teacher.query.all()
+    return render_template(
+        'home_tutors.html',
+        teachers=teachers,
+        subjects=SUBJECTS
+    )
+
 
 @app.route('/faq')
 def faq():
