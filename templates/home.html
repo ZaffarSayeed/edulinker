@@ -836,16 +836,16 @@ font-weight: 500;
 
         <div class="row">
             <div class="col-md-4">
-                <h5>1. Search Tutor</h5>
-                <p>Find tutors by subject & location</p>
+                <h5>1. Search for a Tutor</h5>
+                <p>Search home tutors and online tutors by subject and location.</p>
             </div>
             <div class="col-md-4">
                 <h5>2. Request & Connect</h5>
-                <p>Send request and get matched</p>
+                <p>Send a tutor request and wait for confirmation from EduLinker.</p>
             </div>
             <div class="col-md-4">
                 <h5>3. Start Learning</h5>
-                <p>Connect with your selected tutor and start your learning journey.</p>
+                <p>Connect with your tutor and begin your learning journey.</p>
             </div>
         </div>
     </div>
@@ -897,11 +897,22 @@ font-weight: 500;
             <div class="teacher-card">
 
                 <img src="/static/uploads/{{ t.photo }}"
-                     onerror="this.src='/static/default.png'">
+     alt="{{ t.subject }} tutor {{ t.name }} in {{ t.location }}"
+     onerror="this.src='/static/default.png'">
 
-                <h5>{{ t.name }}</h5>
+                <!-- <h5>{{ t.name }}</h5>
                 <p class="subject">{{ t.subject }}</p>
-                <p class="location">📍 {{ t.location }}</p>
+                <p class="location">📍 {{ t.location }}</p> -->
+                <h3 class="h5">{{ t.name }}</h3>
+
+                <p class="subject">
+                    {{ t.subject }} Tutor
+                </p>
+
+                <p class="location">
+                    📍 Home Tutor in {{ t.location }}
+                </p>
+
 
                 <!-- ⭐ Rating -->
                 <div class="rating">
