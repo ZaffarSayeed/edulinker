@@ -261,6 +261,7 @@ def sitemap():
         url_for('contact', _external=True),
         url_for('faq', _external=True),
         url_for('home_tutors', _external=True),
+        url_for('mathematics_tutors', _external=True),
 
     ]
 
@@ -384,6 +385,21 @@ def home_tutors():
         subjects=SUBJECTS
     )
 
+
+@app.route('/home-tutors/mathematics')
+def mathematics_tutors():
+
+    teachers = Teacher.query.filter(
+        Teacher.subject.ilike('%Mathematics%')
+    ).all()
+
+    return render_template(
+        'mathematics_tutors.html',
+        teachers=teachers
+    )
+
+
+    
 
 @app.route('/faq')
 def faq():
